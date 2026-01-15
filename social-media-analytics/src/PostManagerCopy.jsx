@@ -2,13 +2,6 @@ import React, { useState, useMemo } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { subDays, isWithinInterval, parseISO, format } from 'date-fns';
 import { LineChart, Line, ResponsiveContainer, YAxis, XAxis, Tooltip, CartesianGrid } from 'recharts';
-import PostSentimentAnalysis from './PostSentimentAnalysis';
-
-// Public assets are referenced directly without /public/ prefix
-const like = "/images/like.png";
-const comment = "/images/comment.png";
-const share = "/images/share.png";
-
 import './PostManager.css';
 
 // Data imports (Ensure these files exist in your project)
@@ -23,9 +16,6 @@ import c006 from './data/content_C006_performance.json';
 const allPerformance = { C001: c001, C002: c002, C003: c003, C004: c004, C005: c005, C006: c006 };
 
 export default function PostsManager() {
-    const [isAddModalOpen, setIsAddModalOpen] = useState(false);
-// Mock state for newly added posts (since we can't write to your JSON file)
-const [extraPosts, setExtraPosts] = useState([]);
   const [timePeriod, setTimePeriod] = useState(30);
   const [platform, setPlatform] = useState('All');
   const [catalogSort, setCatalogSort] = useState('All');
@@ -34,7 +24,6 @@ const [extraPosts, setExtraPosts] = useState([]);
 
   // 1. DATA ENGINE: Aggregates everything per post
   const processedPosts = useMemo(() => {
-    const allPosts = [...metadata, ...extraPosts];
     const latestDate = parseISO("2026-01-13");
     const startDate = subDays(latestDate, timePeriod);
 
@@ -80,31 +69,12 @@ const [extraPosts, setExtraPosts] = useState([]);
   }, [timePeriod, platform]);
 
   // 2. LIBRARY AVERAGES (for indicators)
-const libAvgs = useMemo(() => {
-  const keys = [
-    'reach', 
-    'views', 
-    'engRate', 
-    'likes', 
-    'comments', // Added
-    'shares',   // Added
-    'saves',    // Added
-    'followers', 
-    'avg_watch_time', 
-    'skip_rate', 
-    'like_rate', 
-    'share_rate', 
-    'save_rate'
-  ];
-  
-  const avgs = {};
-  keys.forEach(k => {
-    const total = processedPosts.reduce((acc, p) => acc + (p[k] || 0), 0);
-    avgs[k] = processedPosts.length > 0 ? total / processedPosts.length : 0;
-  });
-  
-  return avgs;
-}, [processedPosts]);
+  const libAvgs = useMemo(() => {
+    const keys = ['reach', 'views', 'engRate', 'likes', 'followers', 'avg_watch_time', 'skip_rate', 'like_rate', 'share_rate', 'save_rate'];
+    const avgs = {};
+    keys.forEach(k => avgs[k] = processedPosts.reduce((acc, p) => acc + (p[k] || 0), 0) / processedPosts.length);
+    return avgs;
+  }, [processedPosts]);
 
   const filteredCatalog = useMemo(() => {
     let list = [...processedPosts].filter(p => 
@@ -136,7 +106,7 @@ const libAvgs = useMemo(() => {
       <header className="main-header">
   <div>
     <h1>Content Lab</h1>
-    {/*<p className="subtitle">Real-time Performance Analysis</p>*/}
+    <p className="subtitle">Real-time Performance Analysis</p>
   </div>
   
   <div className="header-controls">
@@ -177,31 +147,30 @@ const libAvgs = useMemo(() => {
       </section>
 
       <section className="catalog-section">
-        <div className="catalog-toolbar" style={{marginBottom:"20px"}}>
+        <div className="catalog-toolbar">
           <select 
-            className="catalog-sort-dropdown" 
-            value={catalogSort} 
-            onChange={e => setCatalogSort(e.target.value)}
-            style={{marginRight:"40px"}}
-            >
-            <option value="All">All Library (Default)</option>
-            <optgroup label="Volume Metrics" style={{color:'var(--midgrey)'}}>
-                <option value="Most Reach" style={{color:'white'}}>Most Reach</option>
-                <option value="Most Views" style={{color:'white'}}>Most Views</option>
-                <option value="Most Followers" style={{color:'white'}}>Most Followers</option>
-            </optgroup>
-            <optgroup label="Interactions" style={{color:'var(--midgrey)'}}>
-                <option value="Most Engagement" style={{color:'white'}}>Highest Eng. Rate</option>
-                <option value="Most Likes" style={{color:'white'}}>Most Likes</option>
-                <option value="Most Shares" style={{color:'white'}}>Most Shares</option>
-                <option value="Most Saves" style={{color:'white'}}>Most Saves</option>
-            </optgroup>
-            <optgroup label="Retention & Quality" style={{color:'var(--midgrey)'}}>
-                <option value="Highest Retention" style={{color:'white'}}>Lowest Skip Rate</option>
-                <option value="Longest Watch Time" style={{color:'white'}}>Longest Watch Time</option>
-            </optgroup>
-          </select>
-          <input type="text" placeholder="Search" className="search-input" value={searchQuery} onChange={e => setSearchQuery(e.target.value)} style={{borderRadius:'20px', height:'30px', width:'300px', paddingLeft:"20px", backgroundColor:'var(--grey2)', color:'white', border:'none'}}/>
+  className="catalog-sort-dropdown" 
+  value={catalogSort} 
+  onChange={e => setCatalogSort(e.target.value)}
+>
+  <option value="All">All Library (Default)</option>
+  <optgroup label="Volume Metrics">
+    <option value="Most Reach">Most Reach</option>
+    <option value="Most Views">Most Views</option>
+    <option value="Most Followers">Most Followers</option>
+  </optgroup>
+  <optgroup label="Interactions">
+    <option value="Most Engagement">Highest Eng. Rate</option>
+    <option value="Most Likes">Most Likes</option>
+    <option value="Most Shares">Most Shares</option>
+    <option value="Most Saves">Most Saves</option>
+  </optgroup>
+  <optgroup label="Retention & Quality">
+    <option value="Highest Retention">Lowest Skip Rate</option>
+    <option value="Longest Watch Time">Longest Watch Time</option>
+  </optgroup>
+</select>
+          <input type="text" placeholder="Search title..." className="search-input" value={searchQuery} onChange={e => setSearchQuery(e.target.value)} />
         </div>
         <div className="catalog-list">
           {filteredCatalog.map(p => <CatalogRow key={p.content_id} post={p} onOpen={() => setSelectedPost(p)} />)}
@@ -211,17 +180,6 @@ const libAvgs = useMemo(() => {
       <AnimatePresence>
         {selectedPost && <PostDetail post={selectedPost} avgs={libAvgs} onClose={() => setSelectedPost(null)} />}
       </AnimatePresence>
-      <button className="fab-add" onClick={() => setIsAddModalOpen(true)}>
-  <span className="plus-icon">+</span>
-  <span className="fab-text">New Content</span>
-</button>
-
-{isAddModalOpen && (
-  <AddPostModal 
-    onClose={() => setIsAddModalOpen(false)} 
-    onSave={(newPost) => setExtraPosts([...extraPosts, newPost])}
-  />
-)}
     </div>
   );
 }
@@ -237,9 +195,9 @@ const RankingCard = ({ post, isLeast, onOpen }) => (
       <div className="rank-card-footer">
         <span className="er-stat">ER: {post.engRate}%</span>
         <div className="mini-stats">
-          <span><img src={like} style={{width:'20px', height:'15px', marginTop:'10px', display:"inline-block"}} alt="" /> {post.likes}</span>
-          <span><img src={comment} style={{width:'20px', height:'15px', marginTop:'10px', display:"inline-block"}} alt="" /> {post.comments}</span>
-          <span><img src={share} style={{width:'20px', height:'15px', marginTop:'10px', display:"inline-block"}} alt="" /> {post.shares}</span>
+          <span>❤️ {post.likes}</span>
+          <span>💬 {post.comments}</span>
+          <span>🔗 {post.shares}</span>
         </div>
       </div>
     </div>
@@ -266,7 +224,7 @@ const CatalogRow = ({ post, onOpen }) => (
 const PostDetail = ({ post, avgs, onClose }) => {
   const [activeMetric, setActiveMetric] = useState('reach');
   const [dPlat, setDPlat] = useState('All');
-  const [detailTime, setDetailTime] = useState(7);
+  const [detailTime, setDetailTime] = useState(30);
 
   // 1. LOCAL STATS ENGINE: Recalculates tiles based on popup filters
   const localStats = useMemo(() => {
@@ -297,9 +255,6 @@ const PostDetail = ({ post, avgs, onClose }) => {
       reach: Math.round(reach),
       views: Math.round(views),
       likes: Math.round(likes),
-      comments: Math.round(comments),
-      shares: Math.round(shares),
-      saves: Math.round(saves),
       followers: Math.round(followers),
       avg_watch_time: parseFloat(watchTime.toFixed(1)),
       skip_rate: parseFloat(skipRate.toFixed(1)),
@@ -333,9 +288,6 @@ const PostDetail = ({ post, avgs, onClose }) => {
       else if (activeMetric === 'followers') daily[key] += entry.new_followers;
       else if (activeMetric === 'skip_rate') daily[key] += entry.skip_rate;
       else if (activeMetric === 'likes') daily[key] += (entry.view_count * (entry.like_rate || 0) / 100);
-      else if (activeMetric === 'comments') daily[key] += (entry.view_count * (entry.comment_rate || 0) / 100);
-      else if (activeMetric === 'shares') daily[key] += (entry.view_count * (entry.share_rate || 0) / 100);
-      else if (activeMetric === 'saves') daily[key] += (entry.view_count * (entry.save_rate || 0) / 100);
       else if (activeMetric === 'engRate') {
          const interactions = (entry.view_count * (entry.like_rate + entry.comment_rate + entry.share_rate + entry.save_rate) / 100);
          daily[key] += entry.reach > 0 ? (interactions / entry.reach) * 100 : 0;
@@ -352,9 +304,6 @@ const PostDetail = ({ post, avgs, onClose }) => {
     { label: 'Reach', key: 'reach' },
     { label: 'Views', key: 'views' },
     { label: 'Likes', key: 'likes' },
-    {label: 'Comments', key: 'comments'},
-    {label: 'Shares', key: 'shares'},
-    {label: 'Saves', key: 'saves'},
     { label: 'Engagement', key: 'engRate', unit: '%' },
     { label: 'Followers', key: 'followers' },
     { label: 'Watch Time', key: 'avg_watch_time', unit: 's' },
@@ -383,7 +332,7 @@ const PostDetail = ({ post, avgs, onClose }) => {
 
             <label>Analysis Period</label>
             <div className="time-chips full-width">
-              {[7, 15, 30].map(days => (
+              {[7, 30, 90].map(days => (
                 <button 
                   key={days} 
                   className={`chip ${detailTime === days ? 'active' : ''}`}
@@ -394,7 +343,7 @@ const PostDetail = ({ post, avgs, onClose }) => {
               ))}
             </div>
           </div>
-          <button className="close-btn" onClick={onClose} style={{display:'none'}}></button>
+          <button className="close-btn" onClick={onClose}>Close Detail</button>
         </div>
         
         <div className="detail-main">
@@ -428,9 +377,6 @@ const PostDetail = ({ post, avgs, onClose }) => {
                 </LineChart>
              </ResponsiveContainer>
           </div>
-
-          {/* Sentiment Analysis Section */}
-          <PostSentimentAnalysis postId={post.content_id} />
         </div>
       </motion.div>
     </div>
@@ -449,84 +395,6 @@ const MetricTile = ({ label, value, unit, avg, reverse, active, onClick }) => {
           <span className="diff">{isGood ? '▲' : '▼'} {diff}%</span>
        </div>
        <div className="m-tile-val">{value}{unit}</div>
-    </div>
-  );
-};
-
-const AddPostModal = ({ onClose, onSave }) => {
-  const [preview, setPreview] = useState(null);
-  const [form, setForm] = useState({
-    title: '',
-    description: '',
-    content_id: `C00${Math.floor(Math.random() * 900 + 100)}`,
-    links: { instagram: '', facebook: '', x: '', pinterest: '' },
-    imageFile: null
-  });
-
-  const handleImageChange = (e) => {
-    const file = e.target.files[0];
-    if (file) {
-      setForm({ ...form, imageFile: file });
-      setPreview(URL.createObjectURL(file)); // Creates a temporary URL for the preview
-    }
-  };
-
-  const handleLinkChange = (plat, val) => {
-    setForm({ ...form, links: { ...form.links, [plat]: val } });
-  };
-
-  return (
-    <div className="modal-overlay" onClick={onClose}>
-      <motion.div className="add-modal wide" onClick={e => e.stopPropagation()} initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}>
-        <div className="add-modal-grid">
-          
-          {/* Left Side: Photo Selector */}
-          <div className="add-photo-section">
-            <label>Content Preview</label>
-            <div className="photo-dropzone" onClick={() => document.getElementById('fileInput').click()}>
-              {preview ? (
-                <img src={preview} alt="Preview" className="img-full-preview" />
-              ) : (
-                <div className="upload-placeholder">
-                  <span>📸</span>
-                  <p>Click to upload photo</p>
-                </div>
-              )}
-              <input id="fileInput" type="file" hidden accept="image/*" onChange={handleImageChange} />
-            </div>
-            <p className="helper-text">Recommended: 1080x1350px (4:5)</p>
-          </div>
-
-          {/* Right Side: Inputs */}
-          <div className="add-info-section">
-            <h2>Register Content</h2>
-            
-            <div className="form-group">
-              <label>Post Title</label>
-              <input type="text" placeholder="e.g. Winter Collection Reveal" onChange={e => setForm({...form, title: e.target.value})} />
-            </div>
-
-            <div className="form-group">
-              <label>Description</label>
-              <textarea rows="3" placeholder="Write the caption or hook" onChange={e => setForm({...form, description: e.target.value})} />
-            </div>
-
-            <label className="section-label">Platform Links</label>
-            <div className="links-grid">
-              <input type="text" placeholder="Instagram URL" onChange={e => handleLinkChange('instagram', e.target.value)} />
-              <input type="text" placeholder="Facebook URL" onChange={e => handleLinkChange('facebook', e.target.value)} />
-              <input type="text" placeholder="X (Twitter) URL" onChange={e => handleLinkChange('x', e.target.value)} />
-              <input type="text" placeholder="Pinterest URL" onChange={e => handleLinkChange('pinterest', e.target.value)} />
-            </div>
-
-            <div className="modal-actions">
-              <button className="cancel-btn" onClick={onClose}>Cancel</button>
-              <button className="save-btn" onClick={() => { onSave(form); onClose(); }}>Save to Lab</button>
-            </div>
-          </div>
-
-        </div>
-      </motion.div>
     </div>
   );
 };

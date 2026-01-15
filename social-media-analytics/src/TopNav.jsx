@@ -2,8 +2,8 @@ import React, { useState } from 'react';
 import './TopNav.css';
 import Pulse from './Pulse';
 import PostGrid from './PostManager';
+
 import ChatbotPage from './ChatbotPage';
-import SimulatorPage from './SimulatorPage';
 
 const TopNav = () => {
   const [activeMode, setActiveMode] = useState('Pulse');
@@ -27,7 +27,7 @@ const TopNav = () => {
           <div style={{color:'white'}}>Third Eye</div>
           <div className='css-wrapper'>
           <div className="mode-switcher">
-            {['Pulse', 'Posts', 'Oracle', 'Simulator'].map((mode) => (
+            {['Pulse', 'Posts', 'Oracle'].map((mode) => (
               <button
                 key={mode}
                 className={`mode-btn ${activeMode === mode ? 'active' : ''}`}
@@ -38,7 +38,7 @@ const TopNav = () => {
             ))}
           </div>
 
-          {/* Right Side: Avatar */}
+          {/* Right Side: Avatar & Action */}
           <div className="nav-user">
             <div 
               className="avatar-circle" 
@@ -81,7 +81,6 @@ const TopNav = () => {
       {activeMode === 'Pulse' && <Pulse />}
       {activeMode === 'Posts' && <PostGrid/>}
       {activeMode === 'Oracle' && <ChatbotPage />}
-      {activeMode === 'Simulator' && <SimulatorPage />}
     </>
   );
 };
