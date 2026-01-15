@@ -1,4 +1,4 @@
-.chat-page-container { display: flex; height: 87vh; background: #1A1A1A; color: white; }
+.chat-page-container { display: flex; height: 600px; background: #1A1A1A; color: white; }
 
 /* Sidebar */
 .chat-sidebar { width: 300px; background: #222; border-right: 1px solid #333; display: flex; flex-direction: column; padding: 20px; }
