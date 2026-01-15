@@ -1,0 +1,50 @@
+[
+  {
+    "content_id": "C001",
+    "title": "The Industry Disruptor",
+    "archetype": "The Viral Hit",
+    "description": "High-energy, broad-appeal video designed for maximum reach. Built on a trending audio hook with fast-paced editing to trigger the discovery algorithm.",
+    "primary_goal": "Brand Awareness",
+    "tone": "Energetic"
+  },
+  {
+    "content_id": "C002",
+    "title": "Coffee & Q&A",
+    "archetype": "The Community Post",
+    "description": "A low-production, 'face-to-camera' video addressing specific follower questions. Designed to deepen trust and drive comments from existing fans.",
+    "primary_goal": "Engagement",
+    "tone": "Authentic"
+  },
+  {
+    "content_id": "C003",
+    "title": "The Product Deep-Dive",
+    "archetype": "The Brand Ad",
+    "description": "A polished showcase of features and benefits. While reach is lower, it focuses on high intent and conversion-ready saves.",
+    "primary_goal": "Conversion",
+    "tone": "Professional"
+  },
+  {
+    "content_id": "C004",
+    "title": "Late Night Musings",
+    "archetype": "The Underperformer",
+    "description": "Experimental content that failed to find an audience. High skip rates indicate a weak hook or misalignment with the platform's core demographic.",
+    "primary_goal": "Experimentation",
+    "tone": "Casual"
+  },
+  {
+    "content_id": "C005",
+    "title": "The Hot Take",
+    "archetype": "The Polarizer",
+    "description": "A controversial opinion on industry standards. Drives massive comment volume and shares, but results in high 'unfollow' rates due to its divisive nature.",
+    "primary_goal": "Shareability",
+    "tone": "Bold"
+  },
+  {
+    "content_id": "C006",
+    "title": "Masterclass: Step-by-Step",
+    "archetype": "The Evergreen Educational",
+    "description": "High-value tutorial content. It experiences slow initial growth but maintains a steady long-tail view count because it is highly searchable and saved.",
+    "primary_goal": "Retention",
+    "tone": "Educational"
+  }
+]

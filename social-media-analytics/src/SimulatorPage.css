@@ -1,0 +1,389 @@
+.simulator-container {
+  background: var(--dark);
+  min-height: 87vh;
+  padding: 40px;
+  border-radius: 20px;
+  color: white;
+}
+
+.simulator-header {
+  margin-bottom: 40px;
+}
+
+.simulator-header h1 {
+  font-size: 32px;
+  font-weight: 800;
+  margin-bottom: 8px;
+}
+
+.simulator-header .subtitle {
+  color: var(--midgrey);
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.simulator-content {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 30px;
+  align-items: start;
+}
+
+/* Form Card */
+.simulator-form-card {
+  background: var(--grey2);
+  padding: 30px;
+  border-radius: 16px;
+  border: 1px solid #333;
+}
+
+.simulator-form-card h2 {
+  font-size: 20px;
+  font-weight: 800;
+  margin-bottom: 25px;
+}
+
+.simulator-form-card .form-group {
+  margin-bottom: 25px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.simulator-form-card label {
+  font-size: 11px;
+  text-transform: uppercase;
+  color: var(--midgrey);
+  font-weight: 800;
+  letter-spacing: 0.05em;
+}
+
+.simulator-form-card input[type="text"],
+.simulator-form-card textarea,
+.simulator-form-card select {
+  background: var(--darkgrey);
+  border: 1px solid #333;
+  padding: 12px 16px;
+  border-radius: 10px;
+  color: white;
+  font-size: 14px;
+  font-weight: 700;
+  transition: all 0.2s;
+  border-left: 3px solid var(--blue);
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  resize: vertical;
+}
+
+.simulator-form-card textarea {
+  min-height: 100px;
+}
+
+.simulator-form-card input[type="text"]:focus,
+.simulator-form-card textarea:focus,
+.simulator-form-card select:focus {
+  outline: none;
+  border-color: var(--blue);
+  box-shadow: 0 0 0 3px rgba(32, 117, 230, 0.1);
+}
+
+.simulator-form-card input::placeholder {
+  color: var(--midgrey);
+}
+
+/* Duration Chips */
+.duration-chips {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.duration-chip {
+  background: var(--darkgrey);
+  border: 1px solid #333;
+  color: var(--midgrey);
+  padding: 8px 16px;
+  border-radius: 8px;
+  font-size: 12px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.duration-chip:hover {
+  color: white;
+  border-color: var(--blue);
+  background: #333;
+}
+
+.duration-chip.active {
+  background: var(--blue);
+  color: white;
+  border-color: var(--blue);
+}
+
+/* Form Actions */
+.form-actions {
+  display: flex;
+  gap: 12px;
+  margin-top: 30px;
+}
+
+.reset-btn {
+  flex: 1;
+  background: transparent;
+  border: 1px solid #333;
+  color: var(--midgrey);
+  padding: 12px;
+  border-radius: 10px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.reset-btn:hover {
+  color: white;
+  border-color: #555;
+}
+
+.simulate-btn {
+  flex: 2;
+  background: var(--blue);
+  border: none;
+  color: white;
+  padding: 12px;
+  border-radius: 10px;
+  font-weight: 800;
+  cursor: pointer;
+  transition: all 0.2s;
+  box-shadow: 0 4px 12px rgba(32, 117, 230, 0.3);
+}
+
+.simulate-btn:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(32, 117, 230, 0.4);
+}
+
+.simulate-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* Prediction Card */
+.prediction-card {
+  background: var(--grey2);
+  padding: 30px;
+  border-radius: 16px;
+  border: 1px solid #333;
+}
+
+.prediction-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 25px;
+}
+
+.prediction-header h2 {
+  font-size: 20px;
+  font-weight: 800;
+}
+
+.platform-badge {
+  padding: 6px 14px;
+  border-radius: 20px;
+  font-size: 11px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.prediction-metrics {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 15px;
+  margin-bottom: 25px;
+}
+
+.metric-box {
+  background: var(--darkgrey);
+  padding: 20px;
+  border-radius: 12px;
+  border-left: 3px solid var(--blue);
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.metric-label {
+  font-size: 10px;
+  text-transform: uppercase;
+  color: var(--midgrey);
+  font-weight: 800;
+  letter-spacing: 0.05em;
+}
+
+.metric-value {
+  font-size: 24px;
+  font-weight: 900;
+  color: white;
+}
+
+/* Confidence Section */
+.confidence-section {
+  margin-bottom: 25px;
+}
+
+.confidence-header {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px;
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--midgrey);
+}
+
+.confidence-value {
+  color: white;
+  font-weight: 800;
+}
+
+.confidence-bar {
+  width: 100%;
+  height: 8px;
+  background: var(--darkgrey);
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.confidence-fill {
+  height: 100%;
+  border-radius: 4px;
+  transition: width 0.8s ease;
+}
+
+/* Reasoning Section */
+.reasoning-section {
+  background: var(--darkgrey);
+  padding: 20px;
+  border-radius: 12px;
+  margin-bottom: 20px;
+}
+
+.reasoning-section h3 {
+  font-size: 12px;
+  text-transform: uppercase;
+  color: var(--midgrey);
+  font-weight: 800;
+  margin-bottom: 12px;
+  letter-spacing: 0.05em;
+}
+
+.reasoning-section p {
+  font-size: 14px;
+  line-height: 1.6;
+  color: white;
+  font-weight: 700;
+}
+
+/* Description Section */
+.description-section {
+  background: var(--darkgrey);
+  padding: 20px;
+  border-radius: 12px;
+  margin-bottom: 20px;
+}
+
+.description-section h3 {
+  font-size: 12px;
+  text-transform: uppercase;
+  color: var(--midgrey);
+  font-weight: 800;
+  margin-bottom: 12px;
+  letter-spacing: 0.05em;
+}
+
+.description-section p {
+  font-size: 14px;
+  line-height: 1.6;
+  color: white;
+  font-weight: 700;
+}
+
+/* Prediction Footer */
+.prediction-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 20px;
+  border-top: 1px solid #333;
+}
+
+.concept-title {
+  font-size: 14px;
+  font-weight: 800;
+  color: white;
+  font-style: italic;
+}
+
+.duration-badge {
+  background: var(--darkgrey);
+  padding: 6px 12px;
+  border-radius: 6px;
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--midgrey);
+}
+
+/* Error Card */
+.error-card {
+  background: rgba(239, 68, 68, 0.1);
+  border: 1px solid #EF4444;
+  padding: 20px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  grid-column: 1 / -1;
+}
+
+.error-icon {
+  font-size: 24px;
+}
+
+.error-card p {
+  color: #EF4444;
+  font-weight: 700;
+  margin: 0;
+}
+
+/* Empty State */
+.empty-state {
+  grid-column: 1 / -1;
+  text-align: center;
+  padding: 60px 20px;
+  background: var(--grey2);
+  border-radius: 16px;
+  border: 1px dashed #333;
+}
+
+.empty-icon {
+  font-size: 48px;
+  margin-bottom: 15px;
+}
+
+.empty-state p {
+  color: var(--midgrey);
+  font-size: 14px;
+  font-weight: 700;
+}
+
+/* Responsive */
+@media (max-width: 1024px) {
+  .simulator-content {
+    grid-template-columns: 1fr;
+  }
+  
+  .prediction-metrics {
+    grid-template-columns: 1fr;
+  }
+}

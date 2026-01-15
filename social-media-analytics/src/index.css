@@ -1,0 +1,42 @@
+/* Import Inter from Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
+
+/* Apply globally */
+html, body {
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  /* 700 is standard Bold; you can use 900 for "Extra Bold" */
+  font-weight: 700; 
+  font-optical-sizing: auto;
+  -webkit-font-smoothing: antialiased;
+  background-color: #222121;
+}
+
+/* Ensures that even elements with default styling (like inputs or buttons) stay bold */
+* {
+  font-weight: 700;
+}
+:root {
+  --grey: #2E2E2E;
+  --grey2: #2E2E2E;
+  --darkgrey: #222121;
+  --blue: #2075E6;
+  --text-white: #ffffff;
+  --midgrey: #747474;
+}
+/*.top-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}*/
+
+.root{
+  /* Standard for Firefox */
+  scrollbar-width: none;
+  /* Standard for Internet Explorer/Edge */
+  -ms-overflow-style: none;
+}
+
+.root::-webkit-scrollbar {
+  /* Chrome, Safari, and Opera */
+  display: none;
+}

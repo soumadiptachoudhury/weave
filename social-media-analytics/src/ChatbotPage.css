@@ -1,0 +1,59 @@
+.chat-page-container { display: flex; height: 87vh; background: #1A1A1A; color: white; }
+
+/* Sidebar */
+.chat-sidebar { width: 300px; background: #222; border-right: 1px solid #333; display: flex; flex-direction: column; padding: 20px; }
+.new-chat-btn { background: #2075E6; color: white; border: none; padding: 12px; border-radius: 8px; font-weight: bold; cursor: pointer; margin-bottom: 20px; }
+.search-box input { width: 93%; background: #111; /*border: 1px solid #444;*/ border: none; padding: 10px; border-radius: 6px; color: white; margin-bottom: 20px; }
+.chat-history { flex: 1; overflow-y: auto; }
+.history-item { display: flex; justify-content: space-between; padding: 12px; border-radius: 8px; cursor: pointer; margin-bottom: 5px; transition: 0.2s; font-size: 14px; }
+.history-item:hover, .history-item.active { background: #333; }
+.delete-btn { background: none; border: none; color: #666; cursor: pointer; }
+.delete-btn:hover { color: #ff4444; }
+
+/* Chat Main */
+.chat-main { flex: 1; display: flex; flex-direction: column; position: relative; border-radius: 10px; }
+.messages-container { flex: 1; overflow-y: auto; padding: 40px 15% 100px; display: flex; flex-direction: column; gap: 20px; border-radius: 20px; scrollbar-width: none;}
+.welcome-screen { text-align: center; margin-top: 20vh; font-size: 24px; color: #555; font-weight: bold; }
+
+.message-wrapper { display: flex; width: 100%;}
+.message-wrapper.user { justify-content: flex-end; }
+.message-bubble { max-width: 80%; padding: 15px 20px; border-radius: 18px; line-height: 1.6; font-size: 15px; }
+.message-wrapper.ai .message-bubble { background: #262626; border-bottom-left-radius: 2px; }
+.message-wrapper.user .message-bubble { background: #2075E6; color: white; border-bottom-right-radius: 2px; }
+
+/* Input Bar */
+.input-area { position: absolute; bottom: 0; width: 70%; padding: 30px 15%; background: linear-gradient(transparent, #1A1A1A 40%); }
+.input-wrapper { display: flex; background: #262626; border: 1px solid #444; border-radius: 12px; padding: 10px; box-shadow: 0 10px 30px rgba(0,0,0,0.3); }
+.input-wrapper input { flex: 1; background: none; border: none; color: white; padding: 10px; outline: none; }
+.input-wrapper button { background: #2075E6; color: white; border: none; padding: 0 20px; border-radius: 8px; cursor: pointer; font-weight: bold; }
+
+/* Ensure tables have a solid structure */
+.message-bubble table {
+  border-collapse: collapse;
+  width: 100%;
+  margin: 10px 0;
+  color: #333; /* Force a dark text color for all rows */
+  background-color: white;
+}
+
+.message-bubble th, .message-bubble td {
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: left;
+}
+
+/* Fix the alternate row issue */
+.message-bubble tr:nth-child(even) {
+  background-color: var(--grey2) !important; /* Light grey */
+  color: rgb(255, 255, 255) !important;
+}
+
+.message-bubble tr:nth-child(odd) {
+  background-color: rgb(99, 99, 99) !important; /* White */
+  color: rgb(255, 255, 255) !important;
+}
+
+/* Ensure text inside rows is never white unless you want it to be */
+.message-bubble tr td {
+  color: inherit; 
+}

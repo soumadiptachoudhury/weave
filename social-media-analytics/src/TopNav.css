@@ -1,0 +1,158 @@
+/* Container & Layout */
+.top-nav {
+  height: 70px;
+  /* background: #ffffff; */
+
+  padding: 0 2rem;
+  display: flex;
+  align-items: center;
+  
+  top: 0;
+  z-index: 100;
+}
+
+.nav-container {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* Mode Switcher Styles */
+.mode-switcher {
+  display: flex;
+  background: #2E2E2E;
+  padding: 4px;
+  border-radius: 12px;
+}
+
+.mode-btn {
+  padding: 8px 20px;
+  border: none;
+  background: transparent;
+  font-weight: 600;
+  color: #ffffff;
+  cursor: pointer;
+  border-radius: 8px;
+  transition: all 0.2s ease;
+}
+
+.mode-btn.active {
+  background: #2075E6;
+  color: #ffffff;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+/* Avatar Styles */
+.avatar-circle {
+  width: 40px;
+  height: 40px;
+  background: #2563eb;
+  color: white;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  cursor: pointer;
+  transition: transform 0.2s;
+}
+
+.avatar-circle:hover {
+  transform: scale(1.05);
+}
+
+/* Side Menu Styles */
+.side-menu {
+  position: fixed;
+  right: -320px;
+  top: 0;
+  width: 320px;
+  height: 100vh;
+  background: var(--darkgrey);
+  box-shadow: -5px 0 15px rgba(0,0,0,0.1);
+  transition: right 0.3s ease;
+  z-index: 200;
+  display: flex;
+  flex-direction: column;
+}
+
+.side-menu.open {
+  right: 0;
+}
+
+.menu-header {
+  padding: 1.5rem;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.platform-list {
+  padding: 1rem;
+  flex-grow: 1;
+}
+
+.platform-item {
+  display: flex;
+  justify-content: space-between;
+  padding: 12px;
+  border-radius: 8px;
+  margin-bottom: 8px;
+  background: #f9fafb;
+}
+
+.status-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  display: inline-block;
+  margin-right: 10px;
+}
+
+.platform-status {
+  font-size: 0.75rem;
+  color: #9ca3af;
+}
+
+/* Actions */
+.menu-actions {
+  padding: 1.5rem;
+  border-top: 1px solid #f3f4f6;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.add-btn, .logout-btn {
+  padding: 12px;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  border: none;
+}
+
+.add-btn {
+  background: #eff6ff;
+  color: #2563eb;
+}
+
+.logout-btn {
+  background: #fff1f2;
+  color: #e11d48;
+}
+
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0,0,0,0.3);
+  z-index: 150;
+}
+
+.css-wrapper{
+  display: flex;
+}
